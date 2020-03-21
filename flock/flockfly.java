@@ -10,13 +10,15 @@ public class flockfly {
         int width = 800;
         int height = 800;
         double unirad = 500;
-        double space = 0.5;
-        double velfactor = 1.0;
-        int nb = 500;
-        int k = 20;
+        double space = 0.2;
+        double velfactor = 0.1;
+        int nb =100;
+        int k = 4;
+        double mindissep = 2.5;
+        double mindiscoh = 5;
         double sepfrac = 0.3;
         double cohfrac = 0.025;
-        double alifrac = 0.0;
+        double alifrac = 0.1;
         double curT = 0;
         double T = 20.0; // Double.valueOf(args[0]);
         double dt = 0.01; // Double.valueOf(args[1]);
@@ -39,7 +41,7 @@ public class flockfly {
         boids b = new boids(nb, ps, vs);
 
         double[][] pos4d = new double[nb][2];
-        String file = String.format("fly-nb_%d-k_%d-sepfrac_%f-cohfrac_%f-alifrac_%f-T_%f.txt", nb, k, sepfrac, cohfrac, alifrac, T);
+        String file = String.format("fly-nb_%d-k_%d-sepfrac_%f-cohfrac_%f-alifrac_%f-T_%f-velfactor_%f-mindis_%f.txt", nb, k, sepfrac, cohfrac, alifrac, T, velfactor, mindissep);
         try {
             FileWriter os = new FileWriter(file);
             for (int it = 0; it < nb; it++) {
@@ -52,9 +54,9 @@ public class flockfly {
 
             while (curT <= T) {
                 for (int i = 0; i < nb; i++) {
-                    b.separation(k/10, i, sepfrac);
-                    b.cohesion(k*2, i, cohfrac);
-                    //b.alignment(k/3, i, alifrac);
+                    b.separation(k/3, i, sepfrac, mindissep);
+                    b.cohesion(k*2, i, cohfrac, mindiscoh);
+                    b.alignment(k/3, i, alifrac);
                     b.posof(i).addmul(b.velof(i), dt);
                 }
 

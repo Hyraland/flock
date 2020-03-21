@@ -7,10 +7,10 @@ public class viewflockfly {
         int width = 800;
         int height = 800;
         double unirad = 500;
-        int nb = 200;
+        int nb = 500;
 
         double[][] pos4d = new double[nb][2];
-        String file = "fly-nb_200-k_10-sepfrac_0.300000-cohfrac_0.025000-alifrac_0.000000-T_20.000000.txt";
+        String file = "fly-nb_1000-k_40-sepfrac_0.300000-cohfrac_0.025000-alifrac_0.000100-T_20.000000-velfactor_0.100000-mindis_5.000000.txt";
         try {
             StdDraw.setCanvasSize(width, height);
             StdDraw.setScale(-1 * unirad, unirad);

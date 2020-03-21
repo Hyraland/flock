@@ -37,7 +37,7 @@ public class boids {
         return size;
     }
 
-    public void separation(int k, int ind, double sepfrac) {
+    public void separation(int k, int ind, double sepfrac, double mindis2) {
         Point v = velof(ind);
         Point p = posof(ind);
         int bn = size();
@@ -51,7 +51,7 @@ public class boids {
             if (i < neis.size()) {
                 vdis = Point.vdist(neis.vel.get(i), v);
                 pdis = Point.vdist(neis.pos.get(i), p);
-                if (v.mul(vdis, pdis) > 0){
+                if (v.mul(vdis, pdis) > 0 && v.mul(pdis, pdis) < mindis2){
                     v.adddev(v.vmul(vdis, pdis), -sepfrac / Point.distance(neis.pos.get(i), p) / k, 0.0);
                 }
                 // v add max?
@@ -61,7 +61,7 @@ public class boids {
         //return v;
     }
 
-    public void cohesion(int k, int ind, double cohfrac) {
+    public void cohesion(int k, int ind, double cohfrac, double mindis) {
         int bn = size();
         Point v = velof(ind);
         Point p = posof(ind);
@@ -69,7 +69,7 @@ public class boids {
         KDTree knn = new KDTree(pos);
         ArrayList<Point> neis = knn.nearestK(p, k);
         for(int i = 0; i < k; i++) {
-            if (i < neis.size()) {
+            if (i < neis.size() && Point.distance(neis.get(i), p) > mindis) {
                 v.addmul(Point.vdist(neis.get(i), p), cohfrac / k);
                 // v add max?
             }
