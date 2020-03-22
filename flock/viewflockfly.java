@@ -10,7 +10,7 @@ public class viewflockfly {
         int nb = 500;
 
         double[][] pos4d = new double[nb][2];
-        String file = "fly-nb_1000-k_40-sepfrac_0.300000-cohfrac_0.025000-alifrac_0.000100-T_20.000000-velfactor_0.100000-mindis_5.000000.txt";
+        String file = "fly-nb_500-k_40-sepfrac_0.300000-cohfrac_0.025000-alifrac_0.100000-T_20.000000-velfactor_0.100000-mindis_2.500000.txt";
         try {
             StdDraw.setCanvasSize(width, height);
             StdDraw.setScale(-1 * unirad, unirad);
@@ -33,7 +33,7 @@ public class viewflockfly {
                     StdDraw.point(pos4d[j][0],pos4d[j][1]);
                 }
                 StdDraw.show();
-                StdDraw.pause(10);
+                StdDraw.pause(5);
             }
             is.close();
 
